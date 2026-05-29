@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>餐厅打卡本</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar" aria-label="餐厅打卡本">
+        <div>
+          <p class="eyebrow">Restaurant Log</p>
+          <h1>餐厅打卡本</h1>
+        </div>
+        <div class="stats" aria-live="polite">
+          <span id="totalCount">0 家</span>
+          <span id="photoCount">0 张菜单</span>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="editor-panel" aria-label="添加餐厅">
+          <form id="restaurantForm" autocomplete="off">
+            <input type="hidden" id="restaurantId" />
+
+            <label>
+              餐厅名称
+              <input id="name" name="name" type="text" placeholder="例如：春风小馆" required />
+            </label>
+
+            <div class="field-row">
+              <label>
+                菜系
+                <input id="cuisine" name="cuisine" type="text" placeholder="粤菜 / 火锅 / 日料" />
+              </label>
+              <label>
+                城市
+                <input id="city" name="city" type="text" placeholder="上海" />
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label>
+                打卡日期
+                <input id="visitDate" name="visitDate" type="date" />
+              </label>
+              <label>
+                评分
+                <select id="rating" name="rating">
+                  <option value="">未评分</option>
+                  <option value="5">5 分</option>
+                  <option value="4">4 分</option>
+                  <option value="3">3 分</option>
+                  <option value="2">2 分</option>
+                  <option value="1">1 分</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              备注
+              <textarea id="notes" name="notes" rows="4" placeholder="推荐菜、排队情况、人均、下次想点什么"></textarea>
+            </label>
+
+            <label class="upload-zone" for="menuImages">
+              <input id="menuImages" name="menuImages" type="file" accept="image/*" multiple />
+              <span class="upload-icon" aria-hidden="true">+</span>
+              <span>上传菜单图片</span>
+              <small>支持多张图片，保存在本机浏览器</small>
+            </label>
+
+            <div id="previewGrid" class="preview-grid" aria-label="菜单图片预览"></div>
+
+            <div class="form-actions">
+              <button class="secondary" type="button" id="resetButton">清空</button>
+              <button class="primary" type="submit" id="saveButton">保存餐厅</button>
+            </div>
+          </form>
+        </aside>
+
+        <section class="list-panel" aria-label="餐厅列表">
+          <div class="toolbar">
+            <div class="search-wrap">
+              <span aria-hidden="true">⌕</span>
+              <input id="searchInput" type="search" placeholder="搜索餐厅、菜系、城市或备注" />
+            </div>
+            <select id="sortSelect" aria-label="排序方式">
+              <option value="newest">最新打卡</option>
+              <option value="rating">评分最高</option>
+              <option value="name">名称 A-Z</option>
+            </select>
+          </div>
+
+          <div id="restaurantList" class="restaurant-list"></div>
+          <div id="emptyState" class="empty-state">
+            <h2>还没有打卡记录</h2>
+            <p>添加第一家餐厅后，它会出现在这里。</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="galleryDialog">
+      <button class="icon-button close-dialog" id="closeGallery" type="button" aria-label="关闭图片预览">×</button>
+      <img id="galleryImage" alt="菜单图片预览" />
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
